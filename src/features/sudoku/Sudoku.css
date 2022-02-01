@@ -46,7 +46,7 @@
 
 .sudoku.success,
 .sudoku.success td {
-  border-color: green !important;
+  border-color: limegreen !important;
 }
 
 .sudoku.fail,

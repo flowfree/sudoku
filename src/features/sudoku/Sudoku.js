@@ -1,50 +1,38 @@
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  generateSudoku,
+  validateSudoku,
+  setValue,
+  clearAll,
+  selectGrid,
+  selectInitialGrid,
+  selectSuccess
+} from './sudokuSlice'
 import './Sudoku.css'
-import { generateSudoku, validateSudoku } from "./SudokuAPI"
 
 export default function Sudoku() {
-  const [initialGrid, setInitialGrid] = useState([])
-  const [grid, setGrid] = useState([])
-  const [playCount, setPlayCount] = useState(1)
-  const [message, setMessage] = useState(null)
+  const grid = useSelector(selectGrid)
+  const initialGrid = useSelector(selectInitialGrid)
+  const success = useSelector(selectSuccess)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const arr = generateSudoku()
-    setInitialGrid(arr)
-    setGrid(arr)
-  }, [playCount])
+    dispatch(generateSudoku())
+  }, [])
 
   function handleInputChange(e, row, col) {
     const value = e.target.value
-    if (isNaN(value)) {
-      return
-    }
-    const clone = JSON.parse(JSON.stringify(grid))
-    clone[row][col] = Number(value)
-    setGrid(clone)
+    dispatch(setValue({ row, col, value }))
   }
 
-  function handleClearAll() {
-    setGrid(initialGrid)
-    setMessage(null)
-  }
-
-  function handleNewGame() {
-    setPlayCount(playCount+1)
-    setMessage(null)
-  }
-
-  function handleSubmit() {
-    if (validateSudoku(grid)) {
-      setMessage('Awesome!')
-    } else {
-      setMessage('Sudoku still got incorrect numbers.')
-    }
+  function handleCheck() {
+    dispatch(validateSudoku())
   }
 
   return (
     <div>
-      <table className="sudoku">
+      <table className={'sudoku ' + (success ? 'success' : '')}>
         <tbody>
           {grid.map((row, rowIndex) => (
             <tr key={'row-'+rowIndex}>
@@ -62,22 +50,16 @@ export default function Sudoku() {
           ))}
         </tbody>
       </table>
-      <button
-        onClick={handleClearAll}
-      >
+      <button onClick={e => dispatch(clearAll())}>
         Clear All
       </button>
-      <button
-        onClick={handleNewGame}
-      >
+      <button onClick={e => dispatch(generateSudoku())}>
         New Game
       </button>
-      <button
-        onClick={handleSubmit}
-      >
+      <button onClick={handleCheck}>
         Check
       </button>
-      {message && <p>{message}</p>}
+      {success && <p>Awesome!!!</p>}
     </div>
   )
 }

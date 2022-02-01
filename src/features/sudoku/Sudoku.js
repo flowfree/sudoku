@@ -29,9 +29,34 @@ export default function Sudoku() {
     dispatch(validateSudoku())
   }
 
+  function handleNewGame(e) {
+    e.preventDefault()
+    dispatch(generateSudoku())
+  }
+
   return (
     <div>
-      <table className="sudoku">
+      <form className="row row-cols-lg-auto g-2 align-items-center justify-content-end mb-3">
+        <div className="col-12">
+          <label htmlFor="level">Level</label>
+        </div>
+        <div className="col-12">
+          <select className="form-select shadow-none" id="level">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div className="col-12">
+          <button
+            className="btn btn-outline-primary shadow-none"
+            onClick={handleNewGame}
+          >
+            New Game
+          </button>
+        </div>
+      </form>
+      <table className="sudoku mb-3">
         <tbody>
           {grid.map((row, rowIndex) => (
             <tr key={'row-'+rowIndex}>
@@ -50,11 +75,11 @@ export default function Sudoku() {
           ))}
         </tbody>
       </table>
-      <button onClick={e => dispatch(clearAll())}>
+      <button 
+        className="btn btn-outline-secondary shadow-none"
+        onClick={e => dispatch(clearAll())}
+      >
         Clear All
-      </button>
-      <button onClick={e => dispatch(generateSudoku())}>
-        New Game
       </button>
       {success && <p>Good job 👍👍👍</p>}
     </div>

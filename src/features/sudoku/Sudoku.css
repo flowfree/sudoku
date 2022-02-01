@@ -5,7 +5,7 @@
 }
 
 .sudoku td {
-  padding: 15px 20px;
+  padding: 15px !important;
   margin: 0;
   text-align: center;
   font-size: 20px;
@@ -19,22 +19,22 @@
   outline: none;
   width: 30px;
 }
-.sudoku .no-padding {
+.sudoku td.no-padding {
   padding: 0;
 }
-.sudoku .border-bottom {
-  border-bottom: #000 1px solid;
+.sudoku td.border-bottom {
+  border-bottom: #000 1px solid !important;
 }
-.sudoku .border-left {
+.sudoku td.border-left {
   border-left: #000 1px solid;
 }
-.sudoku .border-right {
+.sudoku td.border-right {
   border-right: #000 1px solid;
 }
-.sudoku .border-right-bold {
+.sudoku td.border-right-bold {
   border-right: #000 5px solid;
 }
-.sudoku .border-bottom-bold {
+.sudoku td.border-bottom-bold {
   border-bottom: #000 5px solid;
 }
 .sudoku td.invalid {

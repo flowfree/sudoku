@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import './Sudoku.css'
-import SudokuAPI from "./SudokuAPI"
+import { generateSudoku, validateSudoku } from "./SudokuAPI"
 
 export default function Sudoku() {
   const [initialGrid, setInitialGrid] = useState([])
   const [grid, setGrid] = useState([])
   const [playCount, setPlayCount] = useState(1)
   const [message, setMessage] = useState(null)
-  const sudokuAPI = new SudokuAPI()
 
   useEffect(() => {
-    const arr = sudokuAPI.generate()
+    const arr = generateSudoku()
     setInitialGrid(arr)
     setGrid(arr)
   }, [playCount])
@@ -36,7 +35,7 @@ export default function Sudoku() {
   }
 
   function handleSubmit() {
-    if (sudokuAPI.validate(grid)) {
+    if (validateSudoku(grid)) {
       setMessage('Awesome!')
     } else {
       setMessage('Sudoku still got incorrect numbers.')

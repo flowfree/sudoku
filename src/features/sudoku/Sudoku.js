@@ -35,8 +35,8 @@ export default function Sudoku() {
   }
 
   return (
-    <div>
-      <form className="row row-cols-lg-auto g-2 align-items-center justify-content-end mb-3">
+    <div className="mt-3">
+      <form className="row row-cols-sm-auto g-2 align-items-center justify-content-end mb-3">
         <div className="col-12">
           <label htmlFor="level">Level</label>
         </div>
@@ -75,12 +75,6 @@ export default function Sudoku() {
           ))}
         </tbody>
       </table>
-      <button 
-        className="btn btn-outline-secondary shadow-none"
-        onClick={e => dispatch(clearAll())}
-      >
-        Clear All
-      </button>
       {success && <p>Good job 👍👍👍</p>}
     </div>
   )

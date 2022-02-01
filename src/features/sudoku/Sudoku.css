@@ -43,13 +43,3 @@
 .sudoku td.invalid input {
   background-color: #faa; 
 }
-
-.sudoku.success,
-.sudoku.success td {
-  border-color: limegreen !important;
-}
-
-.sudoku.fail,
-.sudoku.fail td {
-  border-color: red !important;
-}

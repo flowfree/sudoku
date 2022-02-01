@@ -1,9 +1,6 @@
 class SudokuAPI {
 
-  /**
-   * Generate new Sudoku grid 
-   */
-  generateSudoku(numElementsToHide = 35) {
+  emptyGrid() {
     const grid = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -15,6 +12,14 @@ class SudokuAPI {
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
+    return grid
+  }
+
+  /**
+   * Generate new Sudoku grid 
+   */
+  generateSudoku(numElementsToHide = 35) {
+    const grid = this.emptyGrid()
 
     // Fill the diagonal blocks
     for (let i = 0; i < 9; i += 3) {
@@ -60,7 +65,7 @@ class SudokuAPI {
     }
 
     for (let num = 1; num <= 9; num++) {
-      if (this.isSafe(grid, row, col, num)) {
+      if (this.isValueSafe(grid, row, col, num)) {
         grid[row][col] = num
         if (this.fillCell(grid, row, col+1)) {
           return true
@@ -79,7 +84,7 @@ class SudokuAPI {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
         const val = grid[row][col]
-        if (val === 0 || this.isSafe(grid, row, col, val) === false) {
+        if (val === '' || val === 0 || this.isValueSafe(grid, row, col, val) === false) {
           return false
         }
       }
@@ -90,7 +95,7 @@ class SudokuAPI {
   /**
    * Returns true if the given number is unique in its row, columns, and block. 
    */
-  isSafe(grid, row, col, num) {
+  isValueSafe(grid, row, col, num) {
     // Row check
     for (let i = 0; i < 9; i++) {
       if (i !== col && grid[row][i] === num) {

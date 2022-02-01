@@ -7,6 +7,7 @@ import {
   clearAll,
   selectGrid,
   selectInitialGrid,
+  selectInvalidMask,
   selectSuccess
 } from './sudokuSlice'
 import './Sudoku.css'
@@ -14,6 +15,7 @@ import './Sudoku.css'
 export default function Sudoku() {
   const grid = useSelector(selectGrid)
   const initialGrid = useSelector(selectInitialGrid)
+  const invalidMask = useSelector(selectInvalidMask)
   const success = useSelector(selectSuccess)
   const dispatch = useDispatch()
 
@@ -24,15 +26,12 @@ export default function Sudoku() {
   function handleInputChange(e, row, col) {
     const value = e.target.value
     dispatch(setValue({ row, col, value }))
-  }
-
-  function handleCheck() {
     dispatch(validateSudoku())
   }
 
   return (
     <div>
-      <table className={'sudoku ' + (success ? 'success' : '')}>
+      <table className="sudoku">
         <tbody>
           {grid.map((row, rowIndex) => (
             <tr key={'row-'+rowIndex}>
@@ -42,6 +41,7 @@ export default function Sudoku() {
                   row={rowIndex}
                   col={colIndex}
                   value={value} 
+                  isValid={invalidMask[rowIndex][colIndex] === 0}
                   onChange={e => handleInputChange(e, rowIndex, colIndex)}
                   editable={initialGrid[rowIndex][colIndex] === 0}
                 />
@@ -56,15 +56,12 @@ export default function Sudoku() {
       <button onClick={e => dispatch(generateSudoku())}>
         New Game
       </button>
-      <button onClick={handleCheck}>
-        Check
-      </button>
-      {success && <p>Awesome!!!</p>}
+      {success && <p>Good job 👍👍👍</p>}
     </div>
   )
 }
 
-function Cell({ row, col, value, editable, onChange }) {
+function Cell({ row, col, value, isValid, editable, onChange }) {
   let classNames = ''
   if (row === 2 || row === 5 || row === 8) {
     classNames += 'border-bottom-bold '
@@ -76,9 +73,8 @@ function Cell({ row, col, value, editable, onChange }) {
   } else {
     classNames += 'border-right '
   }
-  if (editable) {
-    classNames += 'no-padding '
-  }
+  classNames += editable ? 'no-padding ' : ''
+  classNames += isValid ? '' : 'invalid '
 
   if (editable) {
     value = value === 0 ? '' : value

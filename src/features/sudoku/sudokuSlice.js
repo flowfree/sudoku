@@ -15,7 +15,7 @@ export const sudokuSlice = createSlice({
   initialState,
   reducers: {
     generateSudoku: (state) => {
-      const grid = sudokuAPI.generateSudoku(45)
+      const grid = sudokuAPI.generateSudoku()
       state.grid = grid
       state.initialGrid = grid
       state.invalidMask = sudokuAPI.emptyGrid()

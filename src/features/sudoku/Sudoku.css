@@ -37,10 +37,10 @@
 .sudoku .border-bottom-bold {
   border-bottom: #000 5px solid;
 }
-.sudoku td.wrong {
+.sudoku td.invalid {
   background-color: #faa; 
 }
-.sudoku td.wrong input {
+.sudoku td.invalid input {
   background-color: #faa; 
 }
 

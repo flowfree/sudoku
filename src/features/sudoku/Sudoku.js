@@ -24,7 +24,7 @@ export default function Sudoku() {
     setGrid(clone)
   }
 
-  function handleReset() {
+  function handleClearAll() {
     setGrid(initialGrid)
     setMessage(null)
   }
@@ -63,9 +63,9 @@ export default function Sudoku() {
         </tbody>
       </table>
       <button
-        onClick={handleReset}
+        onClick={handleClearAll}
       >
-        Reset
+        Clear All
       </button>
       <button
         onClick={handleNewGame}

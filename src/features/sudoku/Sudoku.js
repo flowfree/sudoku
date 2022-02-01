@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   generateSudoku,
   validateSudoku,
   setValue,
-  clearAll,
   selectGrid,
   selectInitialGrid,
   selectInvalidMask,
@@ -29,33 +28,8 @@ export default function Sudoku() {
     dispatch(validateSudoku())
   }
 
-  function handleNewGame(e) {
-    e.preventDefault()
-    dispatch(generateSudoku())
-  }
-
   return (
-    <div className="mt-3">
-      <form className="row row-cols-sm-auto g-2 align-items-center justify-content-end mb-3">
-        <div className="col-12">
-          <label htmlFor="level">Level</label>
-        </div>
-        <div className="col-12">
-          <select className="form-select shadow-none" id="level">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-        <div className="col-12">
-          <button
-            className="btn btn-outline-primary shadow-none"
-            onClick={handleNewGame}
-          >
-            New Game
-          </button>
-        </div>
-      </form>
+    <div>
       <table className="sudoku mb-3">
         <tbody>
           {grid.map((row, rowIndex) => (
@@ -75,7 +49,7 @@ export default function Sudoku() {
           ))}
         </tbody>
       </table>
-      {success && <p>Good job 👍👍👍</p>}
+      {success && <p className="text-center">Good job 👏 👏 👏</p>}
     </div>
   )
 }

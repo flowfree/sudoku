@@ -4,6 +4,7 @@ import SudokuAPI from "./SudokuAPI"
 const sudokuAPI = new SudokuAPI()
 
 const initialState = {
+  level: 'easy',
   initialGrid: [],
   invalidMask: [],
   grid: [],
@@ -14,8 +15,21 @@ export const sudokuSlice = createSlice({
   name: 'sudoku',
   initialState,
   reducers: {
+    setLevel: (state, action) => {
+      state.level = action.payload      
+    },
+
     generateSudoku: (state) => {
-      const grid = sudokuAPI.generateSudoku()
+      let numCellsToHide = 5
+      if (state.level === 'easy') {
+        numCellsToHide = 15
+      } else if (state.level === 'medium') {
+        numCellsToHide = 35
+      } else if (state.level === 'hard') {
+        numCellsToHide = 45
+      }
+
+      const grid = sudokuAPI.generateSudoku(numCellsToHide)
       state.grid = grid
       state.initialGrid = grid
       state.invalidMask = sudokuAPI.emptyGrid()
@@ -49,7 +63,13 @@ export const sudokuSlice = createSlice({
   }
 })
 
-export const { generateSudoku, validateSudoku, setValue, clearAll } = sudokuSlice.actions
+export const { 
+  generateSudoku, 
+  validateSudoku, 
+  setValue, 
+  setLevel,
+  clearAll 
+} = sudokuSlice.actions
 
 export const selectGrid = state => state.sudoku.grid
 export const selectInitialGrid = state => state.sudoku.initialGrid

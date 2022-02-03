@@ -5,11 +5,9 @@ function App() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-12">
-          <div>
-            <LevelSelector />
-            <Sudoku />
-          </div>
+        <div className="col-12 pt-2">
+          <LevelSelector />
+          <Sudoku />
         </div>
       </div>
 

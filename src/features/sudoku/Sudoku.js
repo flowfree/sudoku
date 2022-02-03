@@ -6,8 +6,7 @@ import {
   setValue,
   selectGrid,
   selectInitialGrid,
-  selectInvalidMask,
-  selectSuccess
+  selectInvalidMask
 } from './sudokuSlice'
 import './Sudoku.css'
 
@@ -15,7 +14,6 @@ export default function Sudoku() {
   const grid = useSelector(selectGrid)
   const initialGrid = useSelector(selectInitialGrid)
   const invalidMask = useSelector(selectInvalidMask)
-  const success = useSelector(selectSuccess)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -49,7 +47,6 @@ export default function Sudoku() {
           ))}
         </tbody>
       </table>
-      {success && <p className="text-center">Good job 👏 👏 👏</p>}
     </div>
   )
 }

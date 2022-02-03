@@ -37,6 +37,11 @@ export const sudokuSlice = createSlice({
       state.success = false
     },
 
+    resetSudoku: state => {
+      state.grid = state.initialGrid
+      state.invalidMask = emptyGrid
+    },
+
     validateSudoku: (state) => {
       state.success = sudokuAPI.validateSudoku(state.grid)
     },
@@ -66,6 +71,7 @@ export const sudokuSlice = createSlice({
 
 export const { 
   generateSudoku, 
+  resetSudoku,
   validateSudoku, 
   setValue, 
   setLevel,

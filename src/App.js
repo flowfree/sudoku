@@ -1,5 +1,5 @@
 import Sudoku from './features/sudoku/Sudoku'
-import ToolBar from './features/sudoku/ToolBar'
+import ToolBar from './app/ToolBar'
 
 function App() {
   return (

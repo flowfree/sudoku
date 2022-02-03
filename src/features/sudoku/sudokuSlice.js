@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import SudokuAPI from "./SudokuAPI"
 
 const sudokuAPI = new SudokuAPI()
-
 const emptyGrid = sudokuAPI.emptyGrid()
 
 const initialState = {

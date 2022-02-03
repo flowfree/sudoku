@@ -53,6 +53,7 @@ function ToolBar() {
             <li>
               <h6 className="dropdown-header">Choose level</h6>
             </li>
+            <li><hr className="dropdown-divider" /></li>
             <li>
               <a 
                 href="/"

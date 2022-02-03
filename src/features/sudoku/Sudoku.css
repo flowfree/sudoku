@@ -2,15 +2,16 @@
   border-top: #000 5px solid;
   border-left: #000 5px solid;
   border-spacing: 0;
+  width: 100%;
 }
 
 .sudoku td {
-  padding: 15px 0 !important; 
+  padding: 10px 0 !important; 
   margin: 0;
   text-align: center;
   font-size: 20px;
   font-family: arial;
-  width: 60px;
+  min-width: 60px;
 }
 
 .sudoku input {

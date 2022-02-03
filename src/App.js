@@ -1,12 +1,12 @@
 import Sudoku from './features/sudoku/Sudoku'
-import LevelSelector from './features/sudoku/LevelSelector'
+import ToolBar from './features/sudoku/ToolBar'
 
 function App() {
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 pt-2">
-          <LevelSelector />
+          <ToolBar />
           <Sudoku />
         </div>
       </div>

@@ -3,6 +3,8 @@ import SudokuAPI from "./SudokuAPI"
 
 const sudokuAPI = new SudokuAPI()
 
+const emptyGrid = sudokuAPI.emptyGrid()
+
 const initialState = {
   level: 'easy',
   initialGrid: [],
@@ -32,7 +34,7 @@ export const sudokuSlice = createSlice({
       const grid = sudokuAPI.generateSudoku(numCellsToHide)
       state.grid = grid
       state.initialGrid = grid
-      state.invalidMask = sudokuAPI.emptyGrid()
+      state.invalidMask = emptyGrid
       state.success = false
     },
 
@@ -57,7 +59,7 @@ export const sudokuSlice = createSlice({
 
     clearAll: (state) => {
       state.grid = state.initialGrid
-      state.invalidMask = sudokuAPI.emptyGrid()
+      state.invalidMask = emptyGrid
       state.success = false
     }
   }

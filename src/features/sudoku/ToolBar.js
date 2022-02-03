@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setLevel, generateSudoku, selectSuccess } from './sudokuSlice'
 
-function LevelSelector() {
+function ToolBar() {
   const level = useSelector(state => state.sudoku.level)
   const success = useSelector(selectSuccess)
   const dispatch = useDispatch()
@@ -87,4 +87,4 @@ function LevelSelector() {
   )
 }
 
-export default LevelSelector
+export default ToolBar

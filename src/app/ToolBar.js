@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { 
   generateSudoku, 
+  undo,
   setLevel, 
   selectSuccess 
 } from '../features/sudoku/sudokuSlice'
 
 function ToolBar() {
   const level = useSelector(state => state.sudoku.level)
+  const userInputCount = useSelector(state => state.sudoku.history.length)
   const success = useSelector(selectSuccess)
   const dispatch = useDispatch()
 
@@ -25,6 +27,8 @@ function ToolBar() {
     <div>
       <button 
         className="btn btn-sm btn-outline-primary shadow-none float-end"
+        onClick={e => dispatch(undo())}
+        disabled={userInputCount === 0}
       >
         Undo
       </button>

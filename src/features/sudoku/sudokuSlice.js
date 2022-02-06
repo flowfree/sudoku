@@ -9,6 +9,7 @@ const initialState = {
   initialGrid: [],
   invalidMask: [],
   grid: [],
+  history: [],
   success: false
 }
 
@@ -51,15 +52,20 @@ export const sudokuSlice = createSlice({
       }
       value = Number(value)
       state.grid[row][col] = value
+      state.history.push([row, col])
       if (sudokuAPI.isValueSafe(state.grid, row, col, value) === false) {
         state.invalidMask[row][col] = 1
       }
     },
 
-    clearAll: (state) => {
-      state.grid = state.initialGrid
-      state.invalidMask = emptyGrid
-      state.success = false
+    undo: state => {
+      while (state.history.length) {
+        const [row, col] = state.history.pop()
+        if (state.grid[row][col] !== 0) {
+          state.grid[row][col] = 0
+          break
+        }
+      }
     }
   }
 })
@@ -69,12 +75,13 @@ export const {
   validateSudoku, 
   setValue, 
   setLevel,
-  clearAll 
+  undo
 } = sudokuSlice.actions
 
 export const selectGrid = state => state.sudoku.grid
 export const selectInitialGrid = state => state.sudoku.initialGrid
 export const selectInvalidMask = state => state.sudoku.invalidMask
 export const selectSuccess = state => state.sudoku.success
+export const selectHistory = state => state.sudoku.history
 
 export default sudokuSlice.reducer

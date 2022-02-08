@@ -126,15 +126,38 @@ class SudokuAPI {
 
     return true
   }
+
+  reveal(grid) {
+    const emptyCells = []
+    grid.flat().forEach((val, index) => {
+      if (val === 0) {
+        const row = Math.floor(index / 9)
+        const col = index % 9
+        emptyCells.push([row, col])
+      }
+    })
+
+    if (emptyCells.length > 1 && emptyCells.length < 81) {
+      const clone = JSON.parse(JSON.stringify(grid))
+      this.fillCell(clone, 0, 0)
+      const randomIndex = Math.floor(Math.random() * emptyCells.length)
+      const [row, col] = emptyCells[randomIndex]
+      return [row, col, clone[row][col]]
+    } else {
+      return [null, null, null]
+    }
+  }
 }
 
 /**
  * Helper function to print the Sudoku grid to console. 
  */
 export function printSudoku(grid) {
+  let output = ''
   grid.forEach(row => {
-    console.log(row.join('  '))
+    output += row.join('  ') + "\n"
   })
+  console.log(output)
 }
 
 export default SudokuAPI

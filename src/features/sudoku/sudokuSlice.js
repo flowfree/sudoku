@@ -58,6 +58,14 @@ export const sudokuSlice = createSlice({
       }
     },
 
+    reveal: state => {
+      const [row, col, value] = sudokuAPI.reveal(state.grid)
+      if (row >= 0 && col >= 0 && value >= 0) {
+        state.grid[row][col] = value
+        state.history.push([row, col])
+      }
+    },
+
     undo: state => {
       while (state.history.length) {
         const [row, col] = state.history.pop()
@@ -75,6 +83,7 @@ export const {
   validateSudoku, 
   setValue, 
   setLevel,
+  reveal,
   undo
 } = sudokuSlice.actions
 

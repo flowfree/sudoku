@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { 
   generateSudoku, 
+  reveal,
   undo,
   setLevel, 
   selectSuccess 
@@ -34,6 +35,7 @@ function ToolBar() {
       </button>
       <button 
         className="btn btn-sm btn-outline-primary shadow-none float-end me-2"
+        onClick={e => dispatch(reveal())}
       >
         Reveal
       </button>
@@ -105,7 +107,7 @@ function ToolBar() {
         </div>
       </div>
       <div className="col-6 mt-2">
-        {success ? (<p className="float-end mt-1">Good job 👏 👏 👏</p>) : buttons} 
+        {success ? (<p className="float-end mt-1">👏 👏 👏 You got it!</p>) : buttons} 
       </div>
     </div>
   )

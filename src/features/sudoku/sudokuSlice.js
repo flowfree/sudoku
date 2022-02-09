@@ -3,9 +3,10 @@ import SudokuAPI from "./SudokuAPI"
 
 const sudokuAPI = new SudokuAPI()
 const emptyGrid = sudokuAPI.emptyGrid()
+const validLevels = ['Practice', 'Easy', 'Medium', 'Hard']
 
 const initialState = {
-  level: 'easy',
+  level: 'Easy',
   initialGrid: [],
   invalidMask: [],
   grid: [],
@@ -18,16 +19,18 @@ export const sudokuSlice = createSlice({
   initialState,
   reducers: {
     setLevel: (state, action) => {
-      state.level = action.payload      
+      if (validLevels.includes(action.payload)) {
+        state.level = action.payload      
+      }
     },
 
     generateSudoku: (state) => {
       let numCellsToHide = 5
-      if (state.level === 'easy') {
+      if (state.level === 'Easy') {
         numCellsToHide = 15
-      } else if (state.level === 'medium') {
+      } else if (state.level === 'Medium') {
         numCellsToHide = 35
-      } else if (state.level === 'hard') {
+      } else if (state.level === 'Hard') {
         numCellsToHide = 45
       }
 

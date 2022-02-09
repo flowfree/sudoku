@@ -1,7 +1,8 @@
 import reducer, {
   setLevel,
   generateSudoku,
-  validateSudoku
+  validateSudoku,
+  undo
 } from './sudokuSlice'
 
 describe('Sudoku Reducer', () => {
@@ -105,6 +106,29 @@ describe('Sudoku Reducer', () => {
 
       const nextState = reducer(initialState, validateSudoku())
       expect(nextState.success).toBe(false)
+    })
+  })
+
+  describe('Undo', () => {
+    test('With non-empty history', () => {
+      expect(incompleteGrid[0][0]).toEqual(0)
+
+      incompleteGrid[0][0] = 1
+      initialState.grid = incompleteGrid
+      initialState.history = [[0,0]]
+
+      const nextState = reducer(initialState, undo())
+
+      expect(nextState.grid[0][0]).toEqual(0)
+      expect(nextState.history).toEqual([])
+    })
+
+    test('With empty history', () => {
+      initialState.grid = incompleteGrid
+      initialState.history = []
+
+      const nextState = reducer(initialState, undo())
+      expect(nextState.grid).toEqual(incompleteGrid)
     })
   })
 })

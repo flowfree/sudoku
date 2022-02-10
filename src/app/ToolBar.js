@@ -42,6 +42,8 @@ function ToolBar() {
     </div>
   )
 
+  const levels = ['Practice', 'Easy', 'Medium', 'Hard']
+
   return (
     <div className="row">
       <div className="col-6 mt-2 mb-3">
@@ -66,43 +68,20 @@ function ToolBar() {
             <li>
               <h6 className="dropdown-header">Choose level</h6>
             </li>
-            <li><hr className="dropdown-divider" /></li>
             <li>
-              <a 
-                href="/"
-                className="dropdown-item" 
-                onClick={e => handleLevelChange(e, 'practice')}
-              >
-                Practice
-              </a>
+              <hr className="dropdown-divider" />
             </li>
-            <li>
-              <a 
-                href="/"
-                className="dropdown-item" 
-                onClick={e => handleLevelChange(e, 'easy')}
-              >
-                Easy
-              </a>
-            </li>
-            <li>
-              <a 
-                href="/"
-                className="dropdown-item" 
-                onClick={e => handleLevelChange(e, 'medium')}
-              >
-                Medium
-              </a>
-            </li>
-            <li>
-              <a 
-                href="/"
-                className="dropdown-item" 
-                onClick={e => handleLevelChange(e, 'hard')}
-              >
-                Hard
-              </a>
-            </li>
+            {levels.map((level, index) => (
+              <li key={index}>
+                <a 
+                  href="/"
+                  className="dropdown-item" 
+                  onClick={e => handleLevelChange(e, level)}
+                >
+                  {level}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

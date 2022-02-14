@@ -1,4 +1,6 @@
 const { app, BrowserWindow } = require('electron')
+const path = require('path')
+const isDev = require('electron-is-dev')
 
 function createWindow() {
   const window = new BrowserWindow({
@@ -8,7 +10,12 @@ function createWindow() {
     resizable: false
   })
 
-  window.loadURL('http://localhost:3000')
+  if (isDev) {
+    window.loadURL('http://localhost:3000')
+  } else {
+    const filename = path.join(__dirname, '../build/index.html')
+    window.loadURL(`file://${filename}`)
+  }
 }
 
 app.whenReady().then(() => {

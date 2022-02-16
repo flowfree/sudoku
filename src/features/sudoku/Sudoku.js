@@ -75,6 +75,7 @@ function Cell({ row, col, value, isValid, editable, onChange }) {
           maxLength="1"
           value={value} 
           onChange={onChange} 
+          data-testid={'cell-'+row+'-'+col}
         />
       </td>
     )

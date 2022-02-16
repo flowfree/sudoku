@@ -5,18 +5,18 @@ const sudokuAPI = new SudokuAPI()
 const emptyGrid = sudokuAPI.emptyGrid()
 const validLevels = ['Practice', 'Easy', 'Medium', 'Hard']
 
-const initialState = {
-  level: 'Easy',
-  initialGrid: [],
-  invalidMask: [],
-  grid: [],
-  history: [],
-  success: false
-}
-
 export const sudokuSlice = createSlice({
   name: 'sudoku',
-  initialState,
+
+  initialState: {
+    level: 'Easy',
+    initialGrid: [],
+    invalidMask: [],
+    grid: [],
+    history: [],
+    success: false
+  },
+
   reducers: {
     setLevel: (state, action) => {
       if (validLevels.includes(action.payload)) {
@@ -95,5 +95,7 @@ export const selectInitialGrid = state => state.sudoku.initialGrid
 export const selectInvalidMask = state => state.sudoku.invalidMask
 export const selectSuccess = state => state.sudoku.success
 export const selectHistory = state => state.sudoku.history
+
+export const initialState = sudokuSlice.getInitialState()
 
 export default sudokuSlice.reducer

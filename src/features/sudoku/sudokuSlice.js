@@ -9,7 +9,7 @@ export const sudokuSlice = createSlice({
   name: 'sudoku',
 
   initialState: {
-    level: 'Easy',
+    level: 'Medium',
     initialGrid: [],
     invalidMask: [],
     grid: [],

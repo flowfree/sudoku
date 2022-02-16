@@ -12,7 +12,7 @@ describe('Sudoku Reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      level: 'Easy',
+      level: 'Medium',
       initialGrid: [],
       invalidMask: [],
       grid: [],

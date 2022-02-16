@@ -4,8 +4,8 @@ import ToolBar from './app/ToolBar'
 function App() {
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-12 pt-2">
+      <div className="row justify-content-md-center">
+        <div className="col-sm-12 col-md-5 pt-2">
           <ToolBar />
           <Sudoku />
         </div>

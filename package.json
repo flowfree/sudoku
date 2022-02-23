@@ -2,7 +2,7 @@
   "name": "sudoku",
   "version": "0.1.0",
   "private": true,
-  "main": "electron/main.js",
+  "main": "electron/main.ts",
   "homepage": "./",
   "dependencies": {
     "@popperjs/core": "^2.11.2",

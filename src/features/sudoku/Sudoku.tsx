@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   generateSudoku,
@@ -62,6 +62,8 @@ interface CellProps {
 }
 
 function Cell({ row, col, value, isValid, editable, onChange }: CellProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
+
   let classNames = ''
   if (row === 2 || row === 5 || row === 8) {
     classNames += 'border-bottom-bold '
@@ -76,13 +78,20 @@ function Cell({ row, col, value, isValid, editable, onChange }: CellProps) {
   classNames += editable ? 'no-padding ' : ''
   classNames += isValid ? '' : 'invalid '
 
+  function handleClick(e: React.MouseEvent) {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }
+
   if (editable) {
     value = value === 0 ? '' : value
     return (
-      <td className={classNames}>
+      <td className={classNames} onClick={handleClick}>
         <input 
           type="text" 
           maxLength={1}
+          ref={inputRef}
           value={value} 
           onChange={onChange} 
           data-testid={'cell-'+row+'-'+col}

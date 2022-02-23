@@ -1,4 +1,6 @@
+import { Grid } from './SudokuAPI'
 import reducer, {
+  SudokuState,
   setLevel,
   generateSudoku,
   validateSudoku,
@@ -6,9 +8,9 @@ import reducer, {
 } from './sudokuSlice'
 
 describe('Sudoku Reducer', () => {
-  let initialState
-  let completedGrid
-  let incompleteGrid
+  let initialState: SudokuState
+  let completedGrid: Grid
+  let incompleteGrid: Grid
 
   beforeEach(() => {
     initialState = {
@@ -46,7 +48,7 @@ describe('Sudoku Reducer', () => {
   })
 
   test('Should return the initial state', () => {
-    const nextState = reducer(undefined, {})
+    const nextState = reducer(undefined, { type: undefined })
     expect(nextState).toEqual(initialState)
   })
 
@@ -67,19 +69,19 @@ describe('Sudoku Reducer', () => {
   })
 
   test('Generate New Sudoku', () => {
-    const numCellsToHide = {
-      'Practice': 5,
-      'Easy': 15,
-      'Medium': 35,
-      'Hard': 45
-    } 
-    for (let level in numCellsToHide) {
+    const numCellsToHide: [string, number][] = [
+      ['Practice', 5],
+      ['Easy', 15],
+      ['Medium', 35],
+      ['Hard', 45]
+    ]
+    for (const [level, hiddenCells] of numCellsToHide) {
       initialState.level = level
 
       const nextState = reducer(initialState, generateSudoku())
       const numZeros = nextState.grid.flat().filter(x => x === 0).length
 
-      expect(numZeros).toEqual(numCellsToHide[level])
+      expect(numZeros).toEqual(hiddenCells)
       expect(nextState.success).toBe(false)
     }
   })

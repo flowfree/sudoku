@@ -1,13 +1,12 @@
-import SudokuAPI, { printSudoku } from './SudokuAPI'
+import SudokuAPI, { Grid, printSudoku } from './SudokuAPI'
 
 describe('Sudoku API', () => {
-  let sudokuAPI
-  let completedGrid
-  let incompleteGrid
+  let sudokuAPI = new SudokuAPI()
+
+  let completedGrid: Grid
+  let incompleteGrid: Grid
 
   beforeEach(() => {
-    sudokuAPI = new SudokuAPI()
-
     completedGrid = [
       [1, 2, 3, 4, 5, 6, 7, 8, 9],
       [4, 5, 6, 7, 8, 9, 1, 2, 3],

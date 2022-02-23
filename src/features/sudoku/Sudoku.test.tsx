@@ -9,19 +9,19 @@ import sudokuReducer, { initialState } from './sudokuSlice'
 
 describe('Sudoku', () => {
   const sudokuAPI = new SudokuAPI()
-  let store
 
   function renderSudoku(state = {}) {
-    store = configureStore({ 
+    const store = configureStore({ 
       reducer: { sudoku: sudokuReducer },
       preloadedState: { sudoku: { ...initialState, ...state } },
     })
-    return render(
+    const returnvalues = render(
       <Provider store={store}>
         <ToolBar />
         <Sudoku />
       </Provider>
     )
+    return { ...returnvalues, store }
   }
 
   test('displays initial grid for the Practice level', () => {
@@ -45,7 +45,7 @@ describe('Sudoku', () => {
   })
 
   test('Validates the grid on each user input', () => {
-    const { getByTestId, queryByText, getByText } = renderSudoku()
+    const { store, getByTestId, queryByText, getByText } = renderSudoku()
 
     const grid = store.getState().sudoku.grid
     const completedGrid = JSON.parse(JSON.stringify(grid))

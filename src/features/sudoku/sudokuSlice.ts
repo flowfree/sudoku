@@ -1,22 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit"
-import SudokuAPI from "./SudokuAPI"
+import { RootState } from '../../app/store';
+import SudokuAPI, { Grid } from "./SudokuAPI"
 
 const sudokuAPI = new SudokuAPI()
 const emptyGrid = sudokuAPI.emptyGrid()
 const validLevels = ['Practice', 'Easy', 'Medium', 'Hard']
 
+export interface SudokuState {
+  level: string
+  initialGrid: Grid
+  invalidMask: number[][]
+  grid: Grid
+  history: [number, number][]
+  success: boolean
+}
+
+export const initialState: SudokuState = {
+  level: 'Medium',
+  initialGrid: [],
+  invalidMask: [],
+  grid: [],
+  history: [],
+  success: false
+}
+
 export const sudokuSlice = createSlice({
   name: 'sudoku',
-
-  initialState: {
-    level: 'Medium',
-    initialGrid: [],
-    invalidMask: [],
-    grid: [],
-    history: [],
-    success: false
-  },
-
+  initialState,
   reducers: {
     setLevel: (state, action) => {
       if (validLevels.includes(action.payload)) {
@@ -63,7 +73,7 @@ export const sudokuSlice = createSlice({
 
     reveal: state => {
       const [row, col, value] = sudokuAPI.reveal(state.grid)
-      if (row >= 0 && col >= 0 && value >= 0) {
+      if (row !== null && col !== null && value !== null) {
         state.grid[row][col] = value
         state.history.push([row, col])
       }
@@ -71,10 +81,13 @@ export const sudokuSlice = createSlice({
 
     undo: state => {
       while (state.history.length) {
-        const [row, col] = state.history.pop()
-        if (state.grid[row][col] !== 0) {
-          state.grid[row][col] = 0
-          break
+        const item = state.history.pop()
+        if (item !== undefined) {
+          const [row, col] = item
+          if (state.grid[row][col] !== 0) {
+            state.grid[row][col] = 0
+            break
+          }
         }
       }
     }
@@ -90,12 +103,10 @@ export const {
   undo
 } = sudokuSlice.actions
 
-export const selectGrid = state => state.sudoku.grid
-export const selectInitialGrid = state => state.sudoku.initialGrid
-export const selectInvalidMask = state => state.sudoku.invalidMask
-export const selectSuccess = state => state.sudoku.success
-export const selectHistory = state => state.sudoku.history
-
-export const initialState = sudokuSlice.getInitialState()
+export const selectGrid = (state: RootState) => state.sudoku.grid
+export const selectInitialGrid = (state: RootState) => state.sudoku.initialGrid
+export const selectInvalidMask = (state: RootState) => state.sudoku.invalidMask
+export const selectSuccess = (state: RootState) => state.sudoku.success
+export const selectHistory = (state: RootState) => state.sudoku.history
 
 export default sudokuSlice.reducer

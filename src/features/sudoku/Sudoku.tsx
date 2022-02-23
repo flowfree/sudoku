@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   generateSudoku,
   validateSudoku,
@@ -11,17 +11,18 @@ import {
 import './Sudoku.css'
 
 export default function Sudoku() {
-  const grid = useSelector(selectGrid)
-  const initialGrid = useSelector(selectInitialGrid)
-  const invalidMask = useSelector(selectInvalidMask)
-  const dispatch = useDispatch()
+  const grid = useAppSelector(selectGrid)
+  const initialGrid = useAppSelector(selectInitialGrid)
+  const invalidMask = useAppSelector(selectInvalidMask)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(generateSudoku())
   }, [])
 
-  function handleInputChange(e, row, col) {
-    const value = e.target.value
+  function handleInputChange(e: React.FormEvent<HTMLInputElement>, row: number, col: number) {
+    const input = e.target as HTMLInputElement
+    const value = input.value
     dispatch(setValue({ row, col, value }))
     dispatch(validateSudoku())
   }
@@ -51,7 +52,16 @@ export default function Sudoku() {
   )
 }
 
-function Cell({ row, col, value, isValid, editable, onChange }) {
+interface CellProps {
+  row: number
+  col: number
+  value: number | ''
+  isValid: boolean
+  editable: boolean
+  onChange(e: React.FormEvent<HTMLInputElement>): void
+}
+
+function Cell({ row, col, value, isValid, editable, onChange }: CellProps) {
   let classNames = ''
   if (row === 2 || row === 5 || row === 8) {
     classNames += 'border-bottom-bold '
@@ -72,7 +82,7 @@ function Cell({ row, col, value, isValid, editable, onChange }) {
       <td className={classNames}>
         <input 
           type="text" 
-          maxLength="1"
+          maxLength={1}
           value={value} 
           onChange={onChange} 
           data-testid={'cell-'+row+'-'+col}

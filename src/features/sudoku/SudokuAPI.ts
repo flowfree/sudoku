@@ -1,7 +1,9 @@
+export type Grid = number[][] | ''[][]
+
 class SudokuAPI {
 
   emptyGrid() {
-    const grid = [
+    const grid: Grid = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -18,7 +20,7 @@ class SudokuAPI {
   /**
    * Generate new Sudoku grid 
    */
-  generateSudoku(numElementsToHide = 35) {
+  generateSudoku(numElementsToHide: number = 35) {
     const grid = this.emptyGrid()
 
     // Fill the diagonal blocks
@@ -50,7 +52,7 @@ class SudokuAPI {
     return grid
   }
 
-  fillCell(grid, row, col) {
+  fillCell(grid: Grid, row: number, col: number): boolean {
     if (row === 8 && col === 9) {
       return true
     }
@@ -80,7 +82,7 @@ class SudokuAPI {
   /**
    * Returns true if Sudoku is valid 
    */
-  validateSudoku(grid) {
+  validateSudoku(grid: Grid): boolean {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
         const val = grid[row][col]
@@ -95,7 +97,7 @@ class SudokuAPI {
   /**
    * Returns true if the given number is unique in its row, columns, and block. 
    */
-  isValueSafe(grid, row, col, num) {
+  isValueSafe(grid: Grid, row: number, col: number, num: number): boolean {
     // Row check
     for (let i = 0; i < 9; i++) {
       if (i !== col && grid[row][i] === num) {
@@ -127,8 +129,8 @@ class SudokuAPI {
     return true
   }
 
-  reveal(grid) {
-    const emptyCells = []
+  reveal(grid: Grid): [number, number, number] | [null, null, null] {
+    const emptyCells: [number, number][] = []
     grid.flat().forEach((val, index) => {
       if (val === 0) {
         const row = Math.floor(index / 9)
@@ -152,7 +154,7 @@ class SudokuAPI {
 /**
  * Helper function to print the Sudoku grid to console. 
  */
-export function printSudoku(grid) {
+export function printSudoku(grid: Grid) {
   let output = ''
   grid.forEach(row => {
     output += row.join('  ') + "\n"

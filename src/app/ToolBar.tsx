@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useAppSelector, useAppDispatch } from './hooks';
 import { 
   generateSudoku, 
   reveal,
@@ -8,18 +9,18 @@ import {
 } from '../features/sudoku/sudokuSlice'
 
 function ToolBar() {
-  const level = useSelector(state => state.sudoku.level)
-  const userInputCount = useSelector(state => state.sudoku.history.length)
-  const success = useSelector(selectSuccess)
-  const dispatch = useDispatch()
+  const level = useAppSelector(state => state.sudoku.level)
+  const userInputCount = useAppSelector(state => state.sudoku.history.length)
+  const success = useAppSelector(selectSuccess)
+  const dispatch = useAppDispatch()
 
-  function handleLevelChange(e, level) {
+  function handleLevelChange(e: React.MouseEvent, level: string) {
     e.preventDefault()
     dispatch(setLevel(level))
     dispatch(generateSudoku())
   }
 
-  function handleNewGame(e) {
+  function handleNewGame(e: React.MouseEvent) {
     e.preventDefault()
     dispatch(generateSudoku())
   }

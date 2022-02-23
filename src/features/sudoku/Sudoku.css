@@ -48,7 +48,3 @@
 .sudoku td.invalid input {
   background-color: #faa; 
 }
-.sudoku td:focus-within,
-.sudoku td:focus-within input {
-  background-color: lightcyan !important;
-}

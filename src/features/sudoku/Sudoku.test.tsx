@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import userEvent from '@testing-library/user-event'
 import sudokuReducer, { initialState } from './sudokuSlice'
 
-describe('Sudoku', () => {
+describe('Sudoku Component', () => {
   const sudokuAPI = new SudokuAPI()
 
   function renderSudoku(state = {}) {

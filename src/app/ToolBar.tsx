@@ -15,6 +15,13 @@ function ToolBar() {
   const success = useAppSelector(selectSuccess)
   const dispatch = useAppDispatch()
 
+  const levels = [
+    Level.Practice, 
+    Level.Easy,
+    Level.Medium,
+    Level.Hard
+  ]
+
   function handleLevelChange(e: React.MouseEvent, level: Level) {
     e.preventDefault()
     dispatch(setLevel(level))
@@ -44,13 +51,6 @@ function ToolBar() {
     </div>
   )
 
-  const levels = [
-    Level.Practice, 
-    Level.Easy,
-    Level.Medium,
-    Level.Hard
-  ]
-
   return (
     <div className="row">
       <div className="col-6 mt-2 mb-3">
@@ -67,6 +67,7 @@ function ToolBar() {
             type="button" 
             className="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split shadow-none" 
             data-bs-toggle="dropdown" 
+            data-testid="selectLevel"
             aria-expanded="false"
           >
             <span className="visually-hidden">Toggle Dropdown</span>

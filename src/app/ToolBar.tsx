@@ -72,21 +72,21 @@ function ToolBar() {
           >
             <span className="visually-hidden">Toggle Dropdown</span>
           </button>
-          <ul className="dropdown-menu">
+          <ul className="dropdown-menu" data-testid="level-dialog">
             <li>
               <h6 className="dropdown-header">Choose level</h6>
             </li>
             <li>
               <hr className="dropdown-divider" />
             </li>
-            {levels.map((level, index) => (
+            {levels.map((item, index) => (
               <li key={index}>
                 <a 
                   href="/"
                   className="dropdown-item" 
-                  onClick={e => handleLevelChange(e, level)}
+                  onClick={e => handleLevelChange(e, item)}
                 >
-                  {level}
+                  {item + (item === level ? ' ✔️' : '')}
                 </a>
               </li>
             ))}

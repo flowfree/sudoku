@@ -1,13 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from '../../app/store';
 import SudokuAPI, { Grid } from "./SudokuAPI"
 
 const sudokuAPI = new SudokuAPI()
 const emptyGrid = sudokuAPI.emptyGrid()
-const validLevels = ['Practice', 'Easy', 'Medium', 'Hard']
+
+export enum Level {
+  Practice = 'Practice',
+  Easy = 'Easy',
+  Medium = 'Medium',
+  Hard = 'Hard'
+}
 
 export interface SudokuState {
-  level: string
+  level: Level
   initialGrid: Grid
   invalidMask: number[][]
   grid: Grid
@@ -16,7 +22,7 @@ export interface SudokuState {
 }
 
 export const initialState: SudokuState = {
-  level: 'Medium',
+  level: Level.Medium,
   initialGrid: [],
   invalidMask: [],
   grid: [],
@@ -28,19 +34,17 @@ export const sudokuSlice = createSlice({
   name: 'sudoku',
   initialState,
   reducers: {
-    setLevel: (state, action) => {
-      if (validLevels.includes(action.payload)) {
-        state.level = action.payload      
-      }
+    setLevel: (state, action: PayloadAction<Level>) => {
+      state.level = action.payload      
     },
 
     generateSudoku: (state) => {
       let numCellsToHide = 5
-      if (state.level === 'Easy') {
+      if (state.level === Level.Easy) {
         numCellsToHide = 15
-      } else if (state.level === 'Medium') {
+      } else if (state.level === Level.Medium) {
         numCellsToHide = 35
-      } else if (state.level === 'Hard') {
+      } else if (state.level === Level.Hard) {
         numCellsToHide = 45
       }
 

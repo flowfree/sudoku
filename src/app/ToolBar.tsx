@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAppSelector, useAppDispatch } from './hooks';
 import { 
+  Level,
   generateSudoku, 
   reveal,
   undo,
@@ -14,7 +15,7 @@ function ToolBar() {
   const success = useAppSelector(selectSuccess)
   const dispatch = useAppDispatch()
 
-  function handleLevelChange(e: React.MouseEvent, level: string) {
+  function handleLevelChange(e: React.MouseEvent, level: Level) {
     e.preventDefault()
     dispatch(setLevel(level))
     dispatch(generateSudoku())
@@ -43,7 +44,12 @@ function ToolBar() {
     </div>
   )
 
-  const levels = ['Practice', 'Easy', 'Medium', 'Hard']
+  const levels = [
+    Level.Practice, 
+    Level.Easy,
+    Level.Medium,
+    Level.Hard
+  ]
 
   return (
     <div className="row">

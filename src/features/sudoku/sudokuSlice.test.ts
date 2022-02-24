@@ -1,6 +1,7 @@
 import { Grid } from './SudokuAPI'
 import reducer, {
   SudokuState,
+  Level,
   setLevel,
   generateSudoku,
   validateSudoku,
@@ -14,7 +15,7 @@ describe('Sudoku Reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      level: 'Medium',
+      level: Level.Medium,
       initialGrid: [],
       invalidMask: [],
       grid: [],
@@ -53,27 +54,19 @@ describe('Sudoku Reducer', () => {
   })
 
   test('Should handle valid level changes', () => {
-    const levels = ['Practice', 'Easy', 'Medium', 'Hard']
+    const levels = [Level.Practice, Level.Easy, Level.Medium, Level.Hard]
     levels.forEach(level => {
       const nextState = reducer(initialState, setLevel(level))
       expect(nextState.level).toEqual(level)
     })
   })
 
-  test('Should handle invalid level changes', () => {
-    const levels = ['medium', 'hard', 'xxx']
-    levels.forEach(level => {
-      const nextState = reducer(initialState, setLevel(level))
-      expect(nextState.level).toEqual(initialState.level)
-    })
-  })
-
   test('Generate New Sudoku', () => {
-    const numCellsToHide: [string, number][] = [
-      ['Practice', 5],
-      ['Easy', 15],
-      ['Medium', 35],
-      ['Hard', 45]
+    const numCellsToHide: [Level, number][] = [
+      [Level.Practice, 5],
+      [Level.Easy, 15],
+      [Level.Medium, 35],
+      [Level.Hard, 45]
     ]
     for (const [level, hiddenCells] of numCellsToHide) {
       initialState.level = level
